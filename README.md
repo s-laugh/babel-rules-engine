@@ -9,6 +9,25 @@ It contains code specifically for maternity benefits and also for a "sample scen
 It is exposed as a web API and defines a contract for the different rules that are coded.
 
 
+## Development
+
+### Running Locally
+
+- `cd` into the solution folder
+- `dotnet run --project esdc-rules-api`
+
+Note: If running this project locally alongside related web APIs, ensure you are specifying the projects to run on separate ports in the launchSettings.json file
+
+### Running in Docker
+
+- `docker build -t babel-rules-engine .`
+- `docker run -it --rm -p 6000:80 babel-rules-engine`
+
+### Testing
+
+-  `dotnet test`
+
+
 ## Maternity Benefits
 
 In general, a rule has two important properties:
