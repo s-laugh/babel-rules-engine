@@ -70,7 +70,9 @@ namespace esdc_rules_api
             services.AddScoped<IRestClient, RestSharp.RestClient>();
 
             // OpenFisca options
-            var openFiscaUrl = Configuration.GetValue<string>("OpenFiscaOptions:Url");
+            var openFiscaUrl = Configuration.GetValue<string>("OpenFiscaOptions:Url") ?? 
+                Environment.GetEnvironmentVariable("openFiscaUrl");
+                
             var openFiscaOptions = new OpenFiscaOptions() {
                 Url = openFiscaUrl
             };
