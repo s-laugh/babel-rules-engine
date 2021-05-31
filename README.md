@@ -119,3 +119,4 @@ This is still in early stages of prototype development, and may undergo many cha
 - Converting this project into a template that could set up some scaffolding for a generic rules API. The developer would then be responsible only for adding in the specific calculation. 
 - Expanding to accommodate more diverse types of rules, for example rules that entities other than an individual (families, couples, etc.)
 - Accept batch requests for rule calculations, rather than just one at a time
+
