@@ -11,6 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
+
 using esdc_rules_api.Lib;
 using esdc_rules_api.MaternityBenefits;
 using esdc_rules_api.MaternityBenefits.Classes;
@@ -35,6 +39,22 @@ namespace esdc_rules_api
         {
             services.AddControllers().AddNewtonsoftJson();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "EI Rules API",
+                    Description = "https://laws-lois.justice.gc.ca/eng/acts/e-5.6/",
+                    TermsOfService = new Uri("https://example.com/terms")
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
             InjectMaternityBenefits(services);
             InjectSampleScenario(services);
         }
@@ -42,6 +62,16 @@ namespace esdc_rules_api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/spec.json", "EI Rules Spec");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -5,6 +5,7 @@
 
 .vscode
 notes.txt
+appsettings.Production.json
 
 # User-specific files
 *.rsuser
