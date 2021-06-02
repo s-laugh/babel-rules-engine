@@ -17,6 +17,11 @@ namespace esdc_rules_api.Controllers
             _requestHandler = requestHandler;
         }
 
+        /// <summary>
+        /// Sample Benefit Calculator
+        /// </summary>
+        /// <param name="request">Request object contains an encoding of the sample scenario case that should be executed, as well as the individual applicant that the case will be run against</param>
+        /// <returns></returns>
         [HttpPost]
         public RuleResponse Calculate(RuleRequest<SampleScenarioCase, SampleScenarioPerson> request)
         {
