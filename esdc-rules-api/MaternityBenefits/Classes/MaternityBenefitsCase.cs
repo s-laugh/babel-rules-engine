@@ -24,17 +24,12 @@ namespace esdc_rules_api.MaternityBenefits.Classes
         [Required]
         [Range(0, 100)]
         public double Percentage { get; set; }
+
         /// <summary>
         /// Number of weeks for which an applicant is entitled to receive the benefit
         /// </summary>
         /// <value></value>
         [Required]
         public int NumWeeks { get; set; }
-        /// <summary>
-        /// A dictionary mapping a code representing the number of best weeks for someone in a given economic region
-        /// </summary>
-        /// <value></value>
-        [Required]
-        public Dictionary<Guid, int> BestWeeksDict { get; set; }
     }
 }

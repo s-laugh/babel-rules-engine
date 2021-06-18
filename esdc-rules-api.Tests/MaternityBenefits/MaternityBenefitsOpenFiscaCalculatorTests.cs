@@ -37,43 +37,14 @@ namespace esdc_rules_api.MaternityBenefits.Tests
                 MaxWeeklyAmount = 500,
                 NumWeeks = 10,
                 Percentage = 50,
-                BestWeeksDict = new Dictionary<Guid, int>() {
-                    {regionId, 5}
-                }
             };
-            var person = GeneratePerson(regionId);
+            var person = new MaternityBenefitsPerson() {
+                AverageIncome = 1000
+            };
             var result = sut.Calculate(rule, person);
 
             // Assert
             Assert.Equal(testAmount, result);
-        }
-
-        private MaternityBenefitsPerson GeneratePerson(Guid regionId) {
-            var weeklyIncomes = new List<WeeklyIncome>();
-
-            for (int i = 1; i <= 10; i++) {
-                weeklyIncomes.Add(new WeeklyIncome() {
-                    StartDate = DateTime.Now.AddMonths(-i),
-                    Income = 100*i
-                });
-            }
-
-            // Ignored
-            weeklyIncomes.Add(new WeeklyIncome() {
-                StartDate = DateTime.Now.AddDays(5),
-                Income = 2000
-            });
-            weeklyIncomes.Add(new WeeklyIncome() {
-                StartDate = DateTime.Now.AddYears(-2),
-                Income = 2000
-            });
-
-            var person = new MaternityBenefitsPerson() {
-                UnemploymentRegionId = regionId,
-                WeeklyIncome = weeklyIncomes
-            };
-
-            return person;
         }
     }
 }
