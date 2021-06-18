@@ -10,6 +10,6 @@ namespace esdc_rules_api.MaternityBenefits
         // Overrides
         public const string Percentage = "maternity_benefits__percentage";
         public const string MaxWeeklyAmount = "maternity_benefits__max_weekly_amount";
-        public const string NumWeeks = "maternity_benefits__number_of_weeks";    
+        public const string NumWeeks = "maternity_benefits__number_of_weeks";
     }
 }

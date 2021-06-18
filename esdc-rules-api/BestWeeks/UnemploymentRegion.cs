@@ -1,16 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel.DataAnnotations;
 
-using esdc_rules_api.Lib;
-
-namespace esdc_rules_api.MaternityBenefits.Classes
+namespace esdc_rules_api.BestWeeks
 {
     /// <summary>
-    /// A class representing an individual applying for maternity benefits
+    /// Class representing an umemployment/economic region
     /// </summary>
-    public class MaternityBenefitsPerson : IRulePerson
+    public class UnemploymentRegion
     {
         /// <summary>
         /// Unique identifier
@@ -18,18 +14,18 @@ namespace esdc_rules_api.MaternityBenefits.Classes
         /// <value></value>
         [Required]
         public Guid Id { get; set; }
-
+        
         /// <summary>
-        /// Average Weekly Income
+        /// Number of best weeks that will be used in the calculation of entitlement for someone in this region
         /// </summary>
         /// <value></value>
         [Required]
-        public decimal AverageIncome { get; set; }
+        [Range(0, 52)]
+        public int BestWeeks { get; set; }
 
-        public MaternityBenefitsPerson() {
+        public UnemploymentRegion() {
             Id = new Guid();
+            BestWeeks = 0;
         }
-
     }
-
 }

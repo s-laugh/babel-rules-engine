@@ -34,8 +34,7 @@ namespace esdc_rules_api.MaternityBenefits
             result.SetProp(personName, OF.MaternityBenefitsAmount, null);
 
             // Person vars
-            int bestWeeks = rule.BestWeeksDict[person.UnemploymentRegionId];
-            decimal averageIncome = person.GetAverageIncome(bestWeeks);
+            decimal averageIncome = person.AverageIncome;
             result.SetProp(personName, OF.AverageIncome, averageIncome);
 
             // Parameter overrides

@@ -3,27 +3,28 @@ using Microsoft.AspNetCore.Mvc;
 
 using esdc_rules_api.Lib;
 using esdc_rules_api.MaternityBenefits.Classes;
+using esdc_rules_api.BestWeeks;
 
 namespace esdc_rules_api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MaternityBenefitsController : ControllerBase
+    public class BestWeeksController : ControllerBase
     {
-        private readonly IHandleRequests<MaternityBenefitsCase, MaternityBenefitsPerson> _requestHandler;
+        private readonly IHandleBestWeeksRequests _requestHandler;
 
-        public MaternityBenefitsController(IHandleRequests<MaternityBenefitsCase, MaternityBenefitsPerson> requestHandler)
+        public BestWeeksController(IHandleBestWeeksRequests requestHandler)
         {
             _requestHandler = requestHandler;
         }
 
         /// <summary>
-        /// Calculate the weekly Maternity Benefit entitlement amount given an encoded rule and an individual
+        /// Calculate the number of best weeks to be used for a person's EI calculation
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public RuleResponse Calculate(RuleRequest<MaternityBenefitsCase, MaternityBenefitsPerson> request)
+        public BestWeeksResponse Calculate(BestWeeksRequest request)
         {
             var result = _requestHandler.Handle(request);
             return result;

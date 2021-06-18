@@ -21,6 +21,8 @@ using esdc_rules_api.MaternityBenefits.Classes;
 using esdc_rules_api.SampleScenario;
 using esdc_rules_api.SampleScenario.Classes;
 using esdc_rules_api.OpenFisca;
+using esdc_rules_api.BestWeeks;
+using esdc_rules_api.AverageIncome;
 using RestSharp;
 
 namespace esdc_rules_api
@@ -57,6 +59,11 @@ namespace esdc_rules_api
 
             InjectMaternityBenefits(services);
             InjectSampleScenario(services);
+
+            services.AddScoped<IHandleAverageIncomeRequests, AverageIncomeRequestHandler>();
+            services.AddScoped<ICalculateAverageIncome, AverageIncomeCalculator>();
+            services.AddScoped<IHandleBestWeeksRequests, BestWeeksRequestHandler>();
+            services.AddScoped<ICalculateBestWeeks, BestWeeksCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
