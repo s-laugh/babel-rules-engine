@@ -1,7 +1,7 @@
-namespace esdc_rules_api.Lib
+namespace esdc_rules_classes
 {
     public interface IRulePerson
     {
-        
+         
     }
 }

@@ -16,4 +16,8 @@
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.11.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\esdc-rules-classes\esdc-rules-classes.csproj" />
+  </ItemGroup>
 </Project>

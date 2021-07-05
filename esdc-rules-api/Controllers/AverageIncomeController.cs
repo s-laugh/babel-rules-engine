@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 
-using esdc_rules_api.AverageIncome;
+using esdc_rules_api.Lib;
+using esdc_rules_classes.AverageIncome;
 
 namespace esdc_rules_api.Controllers
 {
@@ -9,9 +10,9 @@ namespace esdc_rules_api.Controllers
     [Route("[controller]")]
     public class AverageIncomeController : ControllerBase
     {
-        private readonly IHandleAverageIncomeRequests _requestHandler;
+        private readonly IHandleRequests<AverageIncomeRequest, AverageIncomeResponse> _requestHandler;
 
-        public AverageIncomeController(IHandleAverageIncomeRequests requestHandler)
+        public AverageIncomeController(IHandleRequests<AverageIncomeRequest, AverageIncomeResponse> requestHandler)
         {
             _requestHandler = requestHandler;
         }
@@ -22,10 +23,14 @@ namespace esdc_rules_api.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public AverageIncomeResponse Calculate(AverageIncomeRequest request)
+        public ActionResult<AverageIncomeResponse> Calculate(AverageIncomeRequest request)
         {
-            var result = _requestHandler.Handle(request);
-            return result;
+            try {
+                var result = _requestHandler.Handle(request);
+                return Ok(result);
+            } catch (ValidationException ex) {
+                return BadRequest(new { error = ex.Message});
+            }
         }
     }
 }

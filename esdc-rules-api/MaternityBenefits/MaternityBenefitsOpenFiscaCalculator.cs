@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 
 using esdc_rules_api.Lib;
-using esdc_rules_api.MaternityBenefits.Classes;
+using esdc_rules_classes.MaternityBenefits;
 using esdc_rules_api.OpenFisca;
 
 using OF = esdc_rules_api.MaternityBenefits.OpenFiscaMaternityBenefitsVariables;

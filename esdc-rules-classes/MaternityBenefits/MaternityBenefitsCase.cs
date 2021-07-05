@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-using esdc_rules_api.Lib;
-
-namespace esdc_rules_api.MaternityBenefits.Classes
+namespace esdc_rules_classes.MaternityBenefits
 {
     /// <summary>
     /// A class representing a maternity benefit calculation rule encoding.
@@ -16,13 +13,14 @@ namespace esdc_rules_api.MaternityBenefits.Classes
         /// </summary>
         /// <value></value>
         [Required]
+        [Range(100,1000)]
         public decimal MaxWeeklyAmount { get; set; }
         /// <summary>
         /// Percentage of their average income that an applicant is entitled to 
         /// </summary>
         /// <value></value>
         [Required]
-        [Range(0, 100)]
+        [Range(10,100)]
         public double Percentage { get; set; }
 
         /// <summary>
@@ -30,6 +28,7 @@ namespace esdc_rules_api.MaternityBenefits.Classes
         /// </summary>
         /// <value></value>
         [Required]
+        [Range(10,30)]
         public int NumWeeks { get; set; }
     }
 }
