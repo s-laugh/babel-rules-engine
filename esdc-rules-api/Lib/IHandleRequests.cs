@@ -1,9 +1,11 @@
+using esdc_rules_classes;
+
 namespace esdc_rules_api.Lib
 {
     public interface IHandleRequests<T, U> 
-        where T: IRule
-        where U: IRulePerson
+        where T: IRequest
+        where U: IResponse
     {
-        RuleResponse Handle(RuleRequest<T,U> request);
+        U Handle(T request);
     }
 }

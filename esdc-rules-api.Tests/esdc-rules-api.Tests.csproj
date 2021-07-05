@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\esdc-rules-api\esdc-rules-api.csproj" />
+    <ProjectReference Include="..\esdc-rules-classes\esdc-rules-classes.csproj" />
   </ItemGroup>
 
 </Project>

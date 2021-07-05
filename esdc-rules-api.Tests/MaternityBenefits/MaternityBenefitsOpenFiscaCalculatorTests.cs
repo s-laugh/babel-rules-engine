@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using Microsoft.Extensions.Options;
 using Xunit;
 using FakeItEasy;
-using RestSharp;
 
-using esdc_rules_api.MaternityBenefits.Classes;
+using esdc_rules_classes.MaternityBenefits;
 using OF = esdc_rules_api.MaternityBenefits.OpenFiscaMaternityBenefitsVariables;
 using esdc_rules_api.OpenFisca;
 

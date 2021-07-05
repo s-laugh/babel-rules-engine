@@ -15,11 +15,12 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
 
+using esdc_rules_classes.MaternityBenefits;
+using esdc_rules_classes.AverageIncome;
+using esdc_rules_classes.BestWeeks;
+
 using esdc_rules_api.Lib;
 using esdc_rules_api.MaternityBenefits;
-using esdc_rules_api.MaternityBenefits.Classes;
-using esdc_rules_api.SampleScenario;
-using esdc_rules_api.SampleScenario.Classes;
 using esdc_rules_api.OpenFisca;
 using esdc_rules_api.BestWeeks;
 using esdc_rules_api.AverageIncome;
@@ -58,12 +59,20 @@ namespace esdc_rules_api
             });
 
             InjectMaternityBenefits(services);
-            InjectSampleScenario(services);
 
-            services.AddScoped<IHandleAverageIncomeRequests, AverageIncomeRequestHandler>();
+            // Handlers
+            services.AddScoped<IHandleRequests<AverageIncomeRequest, AverageIncomeResponse>, AverageIncomeRequestHandler>();
+            services.AddScoped<IHandleRequests<BestWeeksRequest, BestWeeksResponse>, BestWeeksRequestHandler>();
+            services.AddScoped<IHandleRequests<MaternityBenefitsRequest, MaternityBenefitsResponse>, MaternityBenefitsRequestHandler>();
+
+            // Validators
+            services.AddScoped<IValidateRequests<AverageIncomeRequest>, AverageIncomeRequestValidator>();
+
+            // Calculators
             services.AddScoped<ICalculateAverageIncome, AverageIncomeCalculator>();
-            services.AddScoped<IHandleBestWeeksRequests, BestWeeksRequestHandler>();
             services.AddScoped<ICalculateBestWeeks, BestWeeksCalculator>();
+            services.AddScoped<ICalculateRules<MaternityBenefitsCase, MaternityBenefitsPerson>, MaternityBenefitsOpenFiscaCalculator>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,11 +106,6 @@ namespace esdc_rules_api
         }
 
         private void InjectMaternityBenefits(IServiceCollection services) {
-            
-            services.AddScoped<IHandleRequests<MaternityBenefitsCase, MaternityBenefitsPerson>, RequestHandler<MaternityBenefitsCase, MaternityBenefitsPerson>>();
-            //services.AddScoped<ICalculateRules<MaternityBenefitsCase, MaternityBenefitsPerson>, MaternityBenefitsDefaultCalculator>();
-            services.AddScoped<ICalculateRules<MaternityBenefitsCase, MaternityBenefitsPerson>, MaternityBenefitsOpenFiscaCalculator>();
-
             // OpenFisca
             services.AddScoped<IOpenFisca, OpenFiscaLib>();
             services.AddScoped<IRestClient, RestSharp.RestClient>();
@@ -117,10 +121,5 @@ namespace esdc_rules_api
 
         }
 
-        private void InjectSampleScenario(IServiceCollection services) {
-            
-            services.AddScoped<IHandleRequests<SampleScenarioCase, SampleScenarioPerson>, RequestHandler<SampleScenarioCase, SampleScenarioPerson>>();
-            services.AddScoped<ICalculateRules<SampleScenarioCase, SampleScenarioPerson>, SampleScenarioDefaultCalculator>();
-        }
     }
 }

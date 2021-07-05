@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using esdc_rules_classes.AverageIncome;
+using ppTypes = esdc_rules_api.AverageIncome.ValidPayPeriodTypes;
+
 namespace esdc_rules_api.AverageIncome
 {
     public class AverageIncomeCalculator : ICalculateAverageIncome
     {
-        private readonly long DAY = 1000 * 60 * 60 * 24;
-
+        // TODO: Break this up into separate components that can be independently tested
         public decimal Calculate(AverageIncomeRequest request) {
             
             var fullRoe = CreateFullRoe(request.Roe);
@@ -16,7 +18,7 @@ namespace esdc_rules_api.AverageIncome
 
             var incomeList = GetIncomeList(mainStartDate, request.ApplicationDate, fullRoe);
 
-            incomeList.Sort();
+            incomeList.Sort((a, b) => b.CompareTo(a));
 
             var result = incomeList.Take(request.NumBestWeeks).Average();
 
@@ -41,7 +43,7 @@ namespace esdc_rules_api.AverageIncome
                     StartDate = startDate,
                     EndDate = endDate,
                 });
-                endDate = new DateTime(startDate.Ticks - DAY);
+                endDate = startDate.AddDays(-1);
             }
 
             return new FullRoe(roe, payPeriods);
@@ -50,17 +52,17 @@ namespace esdc_rules_api.AverageIncome
         private DateTime GetStartDateFromEndDate(DateTime endDate, string ppType) {
             DateTime startDate = new DateTime();
             // Monthly: Just take first day of the month
-            if (ppType == "monthly") {
+            if (ppType == ppTypes.MONTHLY) {
                 int monthNum = endDate.Month;
                 int year = endDate.Year;
                 startDate = new DateTime(year, monthNum, 1, 0,0,0);
             }
 
             // If 15, then take 1st; else take 16
-            if (ppType == "semi-monthly") {
+            if (ppType == ppTypes.SEMIMONTHLY) {
                 int monthNum = endDate.Month;
                 int year = endDate.Year;
-                int dayNum = endDate.Day + 1;
+                int dayNum = endDate.Day;
 
                 // If end date is the 15th, then set it as the first day of the month
                 if (dayNum == 15) {
@@ -77,14 +79,14 @@ namespace esdc_rules_api.AverageIncome
                 }
             }
 
-            if (ppType == "bi-weekly") {
+            if (ppType == ppTypes.BIWEEKLY) {
                 // 14 days
-                startDate = new DateTime(endDate.Ticks - (13*DAY));
+                startDate = endDate.AddDays(-13);
             }
 
-            if (ppType == "weekly") {
+            if (ppType == ppTypes.WEEKLY) {
                 // 7 days
-                startDate = new DateTime(endDate.Ticks - (6*DAY));
+                startDate = endDate.AddDays(-6);
             }
 
             return startDate;
@@ -117,12 +119,10 @@ namespace esdc_rules_api.AverageIncome
 
                 foreach (var pp in roe.PayPeriods) {
                     var xSpan = Math.Max(pp.StartDate.Ticks, roe.FirstDayForWhichPaid.Ticks) - startOfWeek.Ticks;
-                    //var xSpanDays = xSpan / DAY;
                     var xSpanDays = (new TimeSpan(xSpan)).Days;
                     var x = Math.Min(7, Math.Max(0, xSpanDays));
                     
                     var ySpan = endOfWeek.Ticks - Math.Min(pp.EndDate.Ticks,  roe.LastDayForWhichPaid.Ticks);
-                    //var ySpanDays = ySpan / DAY;
                     var ySpanDays = (new TimeSpan(ySpan)).Days;
                     var y = Math.Min(7, Math.Max(0, ySpanDays));
 

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using esdc_rules_api.Lib;
-using esdc_rules_api.MaternityBenefits.Classes;
+using esdc_rules_classes.MaternityBenefits;
 
 namespace esdc_rules_api.Controllers
 {
@@ -10,9 +10,10 @@ namespace esdc_rules_api.Controllers
     [Route("[controller]")]
     public class MaternityBenefitsController : ControllerBase
     {
-        private readonly IHandleRequests<MaternityBenefitsCase, MaternityBenefitsPerson> _requestHandler;
+        
+        private readonly IHandleRequests<MaternityBenefitsRequest, MaternityBenefitsResponse> _requestHandler;
 
-        public MaternityBenefitsController(IHandleRequests<MaternityBenefitsCase, MaternityBenefitsPerson> requestHandler)
+        public MaternityBenefitsController(IHandleRequests<MaternityBenefitsRequest, MaternityBenefitsResponse> requestHandler)
         {
             _requestHandler = requestHandler;
         }
@@ -23,10 +24,14 @@ namespace esdc_rules_api.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public RuleResponse Calculate(RuleRequest<MaternityBenefitsCase, MaternityBenefitsPerson> request)
+        public ActionResult<MaternityBenefitsResponse> Calculate(MaternityBenefitsRequest request)
         {
-            var result = _requestHandler.Handle(request);
-            return result;
+            try {
+                var result = _requestHandler.Handle(request);
+                return Ok(result);
+            } catch (ValidationException ex) {
+                return BadRequest(new { error = ex.Message});
+            }
         }
     }
 }
