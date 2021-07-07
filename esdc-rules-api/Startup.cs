@@ -71,8 +71,8 @@ namespace esdc_rules_api
             // Calculators
             services.AddScoped<ICalculateAverageIncome, AverageIncomeCalculator>();
             services.AddScoped<ICalculateBestWeeks, BestWeeksCalculator>();
-            services.AddScoped<ICalculateRules<MaternityBenefitsCase, MaternityBenefitsPerson>, MaternityBenefitsOpenFiscaCalculator>();
-
+            //services.AddScoped<ICalculateRules<MaternityBenefitsCase, MaternityBenefitsPerson>, MaternityBenefitsOpenFiscaCalculator>();
+            services.AddScoped<ICalculateRules<MaternityBenefitsCase, MaternityBenefitsPerson>, MaternityBenefitsDefaultCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

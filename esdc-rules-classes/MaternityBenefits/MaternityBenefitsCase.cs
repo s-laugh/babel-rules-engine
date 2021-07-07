@@ -13,14 +13,14 @@ namespace esdc_rules_classes.MaternityBenefits
         /// </summary>
         /// <value></value>
         [Required]
-        [Range(100,1000)]
+        [Range(100,2000)]
         public decimal MaxWeeklyAmount { get; set; }
         /// <summary>
         /// Percentage of their average income that an applicant is entitled to 
         /// </summary>
         /// <value></value>
         [Required]
-        [Range(10,100)]
+        [Range(1,100)]
         public double Percentage { get; set; }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace esdc_rules_classes.MaternityBenefits
         /// </summary>
         /// <value></value>
         [Required]
-        [Range(10,30)]
+        [Range(1,52)]
         public int NumWeeks { get; set; }
     }
 }

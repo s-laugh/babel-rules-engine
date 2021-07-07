@@ -12,6 +12,7 @@ RUN dotnet restore
 #
 # copy everything else and build app
 COPY esdc-rules-api/. ./esdc-rules-api/
+COPY esdc-rules-classes/. ./esdc-rules-classes/
 #
 WORKDIR /app
 RUN dotnet publish -c Release -o ./publish
