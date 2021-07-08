@@ -5,25 +5,13 @@ namespace esdc_rules_api.BestWeeks
 {
     public class BestWeeksCalculator : ICalculateBestWeeks
     {
-        private int DEFAULT_BEST_WEEKS = 14;
-        private readonly Dictionary<string, int> _bestWeeksLookup = new Dictionary<string, int>() {
-            { "01", 14 },
-            { "02", 15 },
-        };
+        private readonly int DEFAULT_BEST_WEEKS = 14;
         
         public int Calculate(string postalCode) 
         {
-            var economicRegion = GetEconomicRegion(postalCode);
-            var bestWeeks = _bestWeeksLookup.GetValueOrDefault(economicRegion, DEFAULT_BEST_WEEKS);
-            return bestWeeks;
-        }
-
-        public string GetEconomicRegion(string postalCode) {
-            // TODO: Will need to add in some system to do this lookup...
-            // May need hard-coding for now.
-            return "01";
-        }
-
-        
+            // Source: https://srv129.services.gc.ca/eiregions/eng/rates_cur.aspx
+            // TODO: Eventually want a dynamic system to handle this
+            return DEFAULT_BEST_WEEKS;
+        }        
     }
 }

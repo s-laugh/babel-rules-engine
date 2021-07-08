@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -64,6 +59,7 @@ namespace esdc_rules_api
             services.AddScoped<IHandleRequests<AverageIncomeRequest, AverageIncomeResponse>, AverageIncomeRequestHandler>();
             services.AddScoped<IHandleRequests<BestWeeksRequest, BestWeeksResponse>, BestWeeksRequestHandler>();
             services.AddScoped<IHandleRequests<MaternityBenefitsRequest, MaternityBenefitsResponse>, MaternityBenefitsRequestHandler>();
+            services.AddScoped<IHandleBulkRequests, MaternityBenefitsBulkRequestHandler>();
 
             // Validators
             services.AddScoped<IValidateRequests<AverageIncomeRequest>, AverageIncomeRequestValidator>();
@@ -73,6 +69,8 @@ namespace esdc_rules_api
             services.AddScoped<ICalculateBestWeeks, BestWeeksCalculator>();
             //services.AddScoped<ICalculateRules<MaternityBenefitsCase, MaternityBenefitsPerson>, MaternityBenefitsOpenFiscaCalculator>();
             services.AddScoped<ICalculateRules<MaternityBenefitsCase, MaternityBenefitsPerson>, MaternityBenefitsDefaultCalculator>();
+        
+             services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -24,7 +24,7 @@ namespace esdc_rules_api.OpenFisca
 
         private Dictionary<string, object> SetValue(object val) {
             return new Dictionary<string, object>() {
-                { "2020-09", val }// TODO: can't hard-code this - will depend
+                { "2020-09", val } // TODO: can't hard-code this - will depend
             };
         }
     }
