@@ -46,13 +46,13 @@ The Rules engine is made up of a number of different projects.
 ### esdc-rules-api
 This is the executable project that is run as a web API. It contains the handlers and logic for the three different calculations (BestWeeks, AverageIncome, MaternityBenefits). The code here makes fairly heavy use of some OOP principles such as interfaces and generics. This is done to show how the architecture could be extended to other government rules. There is also a corresponding Tests project.
 
-#### BestWeeks Calculation
+#### BestWeeks Code
 The BestWeeks calculation is very straightforward at this point - all postal codes return the same value of 14. This will need to be updated as the rules around Maternity Benefits change. We will need to track down a reliable source that can retrieve the number of best weeks based on the postal code. If such a service is not open for connection, then the values may need to be hard-coded and updated.
 
-#### AverageIncome Calculation
+#### AverageIncome Code
 As mentioned, this is the most complex logic in the Rules Engine. More consultation and feedback with policy experts is needed to validate and improve this calculation. There are certain restrictions on the types of values that can be used with the endpoint. For example, it cannot handle applications that have multiple RoEs, and it can only handle RoEs that have a "regular" pay period type (i.e. monthly, semi-monthly, bi-weekly, weekly). 
 
-#### MaternityBenefits Calculation
+#### MaternityBenefits Code
 This is the main "rule" calculation of the engine, which takes in a custom set of rule parameters.
 
 There are two separate implementations of the maternity benefits calculation. The goal of having two is to demonstrate flexibility as well as demonstrate the use of integration specifically with OpenFisca:
