@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "10fbbb81-a294-44a3-8942-01776d104e80",
+		"name": "esdc-rules-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Best Weeks",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"PostalCode\": \"A1A1A1\"\r\n}\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/BestWeeks",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"BestWeeks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Average Income",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Roe\": {\r\n            \"PayPeriods\": [\r\n                {\r\n                    \"PayPeriodNumber\": 1,\r\n                    \"Amount\": 1000\r\n                }\r\n            ],\r\n            \"PayPeriodType\": \"bi-weekly\",\r\n            \"LastDayForWhichPaid\": \"2021-05-02T00:00:00\",\r\n            \"FirstDayForWhichPaid\": \"2018-03-14T00:00:00\",\r\n            \"FinalPayPeriodDay\": \"2021-05-03T00:00:00\"\r\n    },\r\n    \"ApplicationDate\": \"2021-05-02T00:00:00\",\r\n    \"NumBestWeeks\": 22\r\n}\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/AverageIncome",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"AverageIncome"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MaternityBenefits Rule",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Person\": {\r\n        \"Id\": \"{{$guid}}\",\r\n        \"AverageIncome\": 1000\r\n    },\r\n    \"Rule\": {\r\n        \"MaxWeeklyAmount\": 595,\r\n        \"Percentage\": 55,\r\n        \"NumWeeks\": 10\r\n    }\r\n}\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/MaternityBenefits",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"MaternityBenefits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MaternityBenefits Bulk",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Persons\": [\r\n        {\r\n            \"Id\": \"2e35a0ef-8d68-453d-a8e6-6dea321af2d5\",\r\n            \"AverageIncome\": 1000\r\n        },\r\n        {\r\n            \"Id\": \"{{$guid}}\",\r\n            \"AverageIncome\": 1200\r\n        }\r\n        \r\n    ],\r\n    \"Rule\": {\r\n        \"MaxWeeklyAmount\": 595,\r\n        \"Percentage\": 55,\r\n        \"NumWeeks\": 10\r\n    }\r\n}\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/MaternityBenefits/Bulk",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"MaternityBenefits",
+						"Bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/swagger/v1/swagger.json",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"swagger",
+						"v1",
+						"swagger.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/ping",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
