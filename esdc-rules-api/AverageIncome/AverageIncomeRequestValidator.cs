@@ -19,8 +19,10 @@ namespace esdc_rules_api.AverageIncome
                 throw new ValidationException("Application date cannot be in the future");
             }
 
+            // TODO: We seem to be encountering a few of these. 
+            // Look into ensuring the flow works if this is the case, and removing this exception
             if (request.ApplicationDate < request.Roe.LastDayForWhichPaid) {
-                throw new ValidationException("Application date must be after alst date for which paid");
+                throw new ValidationException("Application date must be after last date for which paid");
             }
 
             if (request.NumBestWeeks < 1 || request.NumBestWeeks > 52) {

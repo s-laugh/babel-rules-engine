@@ -64,13 +64,22 @@ namespace esdc_rules_api
             // Validators
             services.AddScoped<IValidateRequests<AverageIncomeRequest>, AverageIncomeRequestValidator>();
 
-            // Calculators
+            // Main Calculators
             services.AddScoped<ICalculateAverageIncome, AverageIncomeCalculator>();
             services.AddScoped<ICalculateBestWeeks, BestWeeksCalculator>();
             //services.AddScoped<ICalculateRules<MaternityBenefitsCase, MaternityBenefitsPerson>, MaternityBenefitsOpenFiscaCalculator>();
             services.AddScoped<ICalculateRules<MaternityBenefitsCase, MaternityBenefitsPerson>, MaternityBenefitsDefaultCalculator>();
         
-             services.AddMemoryCache();
+            // Average Income Calculator Helpers
+            services.AddScoped<ICreateFullRoes, FullRoeCreator>();
+            services.AddScoped<IGetIncomeForOneWeek, WeeklyIncomeGetter>();
+            services.AddScoped<IGetIncomeFromOneRoe, IncomeRoeGetter>();
+            services.AddScoped<ICreateFullPayPeriods, FullPayPeriodCreator>();
+            services.AddScoped<IGetMainStartDate, MainStartDateGetter>();
+            services.AddScoped<IGetStartDateFromEndDate, StartDateFromEndDateGetter>();
+            services.AddScoped<IGetIncomeList, IncomeListGetter>();
+
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
