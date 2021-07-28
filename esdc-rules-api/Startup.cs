@@ -119,7 +119,7 @@ namespace esdc_rules_api
 
             // OpenFisca options
             var openFiscaUrl = Configuration.GetValue<string>("OpenFiscaOptions:Url") ?? 
-                Environment.GetEnvironmentVariable("openFiscaUrl");
+                Environment.GetEnvironmentVariable("OPEN_FISCA_URL");
                 
             var openFiscaOptions = new OpenFiscaOptions() {
                 Url = openFiscaUrl
