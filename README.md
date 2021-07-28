@@ -104,19 +104,7 @@ To update the Nuget package:
 
 ### Deployment
 
-The Rules engine is currently deployed to Azure as an App Service. Prior to deploying, ensure the configs are appropriately set in the appsettings.Production.json file in esdc-rules-api project.
-
-I've used VS Code as an IDE, and it comes with extensions that make deployment easier. Install the following extensions:
-- Azure Account
-- Azure App Service
-- Docker
-
-Once successfully installed, you will get corresponding tabs in VS code that can be used to facilitate deployment. Ensure you are signed in to Azure and that VS Code is connected to your Azure account.
-
-Build the docker file. You can use the previously mentioned docker command or use the docker plugin in VS Code by right-clicking on the docker file and selecting "Build Image".
-
-Navigate to the Docker tab in VS Code and find the "Images" section. Find the image that you just built, expand it, then right-click on the "latest" tag, and select "push". It should confirm the container that will be used for deployment.
-
+The Rules engine is currently deployed to Azure as an App Service. Deployments are set up using github actions, based on manually clicking a button. Go to the github actions, choose the 'Deploy' workflow and run it.
 
 ## Related Ideas and Future Development
 
