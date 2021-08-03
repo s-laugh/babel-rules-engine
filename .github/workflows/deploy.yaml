@@ -6,7 +6,7 @@ jobs:
   publish_Deploy:
       name: Publish and Deploy
       env:
-        ACR_SERVER: babelpdereg.azurecr.io
+        ACR_SERVER: shaunpdet1.azurecr.io
         APP_NAME: esdcrulesengine
       runs-on: ubuntu-latest
       steps:
